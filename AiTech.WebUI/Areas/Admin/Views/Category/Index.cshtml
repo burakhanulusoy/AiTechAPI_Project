@@ -1,0 +1,39 @@
+﻿@model List<ResultCategoryDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Tüm Kategoriler</h1>
+
+<table class="table table-bordered table-hover">
+
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>İşlemler</td>
+
+    </tr>
+
+    @foreach(var category in Model)
+    {
+
+        <tr>
+            <td>@category.Id</td>
+            <td>@category.Name</td>
+            <td>
+                <a href="/Admin/Category/DeleteCategory/@category.Id" class="btn-danger">Sil</a>
+                <a href="/Admin/Category/UpdateCategory/@category.Id" class="btn-info">Güncelle</a>
+
+            </td>
+
+        </tr>
+
+
+
+
+    }
+</table>
+
+<a href="/Admin/Category/CreateCategory" class="btn-success">Yeni Kategori Ekle</a>
+

@@ -1,5 +1,7 @@
 ﻿using AiTech.Business.Services.CategoryServices;
+using AiTech.DTO.CategoryDtos;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AiTech.API.Controllers
 {
@@ -22,12 +24,27 @@ namespace AiTech.API.Controllers
             return Ok(category);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateCategoryDto categoryDto)
+        {
+            await _categoryService.TCreateAsync(categoryDto);
+            return Ok("Kategori başarıyla oluşturuldu.");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateCategoryDto categoryDto)
+        {
+            await _categoryService.TUpdate(categoryDto);
+            return Ok("Kategori başarıyla güncellendi.");
+        }
 
 
-
-
-
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _categoryService.TDelete(id);
+            return Ok("Kategori başarıyla silindi.");
+        }
 
 
 
