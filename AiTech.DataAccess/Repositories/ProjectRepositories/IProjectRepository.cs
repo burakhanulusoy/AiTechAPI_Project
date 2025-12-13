@@ -6,6 +6,7 @@ namespace AiTech.DataAccess.Repositories.ProjectRepositories
     public interface IProjectRepository:IGenericRepository<Project>
     {
 
+        Task<List<Project>> GetProjectsWithCategories();
 
     }
 }

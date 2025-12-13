@@ -1,0 +1,21 @@
+﻿@model CreateCategoryDto
+@{
+    ViewData["Title"] = "CreateCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post">
+
+    <label>Kategori Adı</label>
+    <input asp-for="Name" type="text" required class="form-control" />
+    <br />
+
+    <span class="text-danger">@Html.ValidationSummary()</span>
+
+    <button  class="btn btn-primary">Oluştur</button>
+
+
+</form>
+
+

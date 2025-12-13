@@ -1,0 +1,21 @@
+﻿@model UpdateCategoryDto
+@{
+    ViewData["Title"] = "UpdateCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post">
+
+    <input asp-for="Id" type="hidden" />
+
+    <label>Name</label>
+    <input asp-for="Name" type="text" required class="form-control" />
+    <br />
+
+    <span class="text-danger">@Html.ValidationSummary()</span>
+
+    <button class="btn btn-primary">Güncelle</button>
+
+
+</form>

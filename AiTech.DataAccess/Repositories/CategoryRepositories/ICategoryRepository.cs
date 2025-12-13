@@ -15,7 +15,5 @@ namespace AiTech.DataAccess.Repositories.CategoryRepositories
 
 
 
-
-
     }
 }
