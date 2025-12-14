@@ -1,39 +1,92 @@
 ﻿@model List<ResultCategoryDto>
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Admin/Index.cshtml";
+    int count = 0;
+
 }
 
-<h1>Tüm Kategoriler</h1>
+<div class="main-content-container overflow-hidden">
 
-<table class="table table-bordered table-hover">
-
-    <tr>
-        <td>Id</td>
-        <td>Name</td>
-        <td>İşlemler</td>
-
-    </tr>
-
-    @foreach(var category in Model)
-    {
-
-        <tr>
-            <td>@category.Id</td>
-            <td>@category.Name</td>
-            <td>
-                <a href="/Admin/Category/DeleteCategory/@category.Id" class="btn btn-danger">Sil</a>
-                <a href="/Admin/Category/UpdateCategory/@category.Id" class="btn btn-info">Güncelle</a>
-
-            </td>
-
-        </tr>
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4 mt-1">
 
 
 
 
-    }
-</table>
+        <table class="table table-bordered table-hover">
 
-<a href="/Admin/Category/CreateCategory" class="btn btn-success">Yeni Kategori Ekle</a>
+            <tr>
+                <td>#</td>
+                <td>Name</td>
+                <td>İşlemler</td>
+
+            </tr>
+
+            @foreach (var category in Model)
+            {
+                count++;
+
+                <tr>
+                    <td>@count</td>
+                    <td>@category.Name</td>
+                    <td>
+                        <a href="/Admin/Category/DeleteCategory/@category.Id" class="btn btn-danger">Sil</a>
+                        <a href="/Admin/Category/UpdateCategory/@category.Id" class="btn btn-info">Güncelle</a>
+
+                    </td>
+
+                </tr>
+
+
+
+
+            }
+        </table>
+
+        <a href="/Admin/Category/CreateCategory" class="btn btn-success">Yeni Kategori Ekle</a>
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.btn-danger').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault(); // normal linkin çalışmasını durdur
+                    const url = this.href;
+
+                    Swal.fire({
+                        title: 'Emin misiniz?',
+                        text: "Bu işlemi geri alamazsınız!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Evet, sil!',
+                        cancelButtonText: 'Hayır'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = url;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+
+
+
+
 

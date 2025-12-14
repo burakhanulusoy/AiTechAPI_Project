@@ -1,11 +1,12 @@
 ﻿@model UpdateCategoryDto
 @{
     ViewData["Title"] = "UpdateCategory";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Admin/Index.cshtml";
+
 }
 
 
-<form method="post">
+<form method="post" id="categoryForm">
 
     <input asp-for="Id" type="hidden" />
 
@@ -15,7 +16,64 @@
 
     <span class="text-danger">@Html.ValidationSummary()</span>
 
-    <button class="btn btn-primary">Güncelle</button>
+    <button type="button" id="btnCreate" class="btn btn-primary">Güncelle</button>
 
 
 </form>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.getElementById("btnCreate").addEventListener("click", function () {
+        Swal.fire({
+            title: "Kaydetmek üzeresiniz!",
+            text: "Girdiğiniz bilgileri kontrol ettiniz mi?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: '<i class="fa fa-check"></i> Evet, Kaydet!',
+            cancelButtonText: '<i class="fa fa-times"></i> Vazgeç',
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            background: "#f9f9f9",
+            backdrop: `
+              rgba(0,0,0,0.4)
+              left top
+              no-repeat
+            `,
+            customClass: {
+                title: 'swal2-title-custom',
+                popup: 'swal2-popup-custom',
+                confirmButton: 'swal2-confirm-custom',
+                cancelButton: 'swal2-cancel-custom'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Formu submit etmeden önce loading efekti
+                Swal.fire({
+                    title: "Kaydediliyor...",
+                    text: "Lütfen bekleyiniz",
+                    timer: 2000,
+                    timerProgressBar: true,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                }).then(() => {
+                    // 2sn sonra formu gönder
+                    document.getElementById("categoryForm").submit();
+
+                    // Başarılı mesaj (form post sonrası Redirect olursa gerek kalmaz)
+                    Swal.fire({
+                        icon: "success",
+                        title: "Başarılı!",
+                        text: "Rota başarıyla kaydedildi.",
+                        confirmButtonColor: "#28a745"
+                    });
+                });
+            }
+        });
+    });
+</script>
