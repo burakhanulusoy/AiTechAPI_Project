@@ -1,5 +1,4 @@
 using AiTech.WebUI.Extensions;
-using AiTech.WebUI.Services.CategoryServices;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,5 @@
-﻿using AiTech.WebUI.Services.CategoryServices;
+﻿using AiTech.WebUI.Services.BannerServices;
+using AiTech.WebUI.Services.CategoryServices;
 using AiTech.WebUI.Services.ProjectServices;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -15,6 +16,7 @@ namespace AiTech.WebUI.Extensions
         {
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IBannerService, BannerService>();
 
 
             services.AddFluentValidationAutoValidation()

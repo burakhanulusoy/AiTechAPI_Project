@@ -1,0 +1,162 @@
+﻿@model List<ResultBannerDto>
+
+@{
+    ViewData["Title"] = "Banner Listesi";
+    Layout = "~/Views/Admin/Index.cshtml";
+    int count = 0;
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Banner Yönetimi</h6>
+        <a href="/Admin/Banner/CreateBanner" class="btn btn-primary btn-sm">
+            <i class="fa fa-plus"></i> Yeni Banner Ekle
+        </a>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle" width="100%" cellspacing="0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 20%">Başlık</th>
+                        <th style="width: 15%">Görsel</th>
+                        <th style="width: 30%">Açıklama</th>
+                        <th style="width: 10%">Durum</th>
+                        <th style="width: 20%">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var banner in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td class="fw-bold">@banner.Title</td>
+                            <td>
+                                <img src="@banner.ImageUrl"
+                                     class="img-thumbnail rounded"
+                                     style="width: 120px; height: 80px; object-fit: cover;"
+                                     alt="@banner.Title" />
+                            </td>
+                            <td>
+                                <span class="d-inline-block text-truncate" style="max-width: 250px;">
+                                    @banner.Description
+                                </span>
+                            </td>
+                            <td>
+                                @if (banner.IsActive)
+                                {
+                                    <span class="badge bg-success p-2">Aktif</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary p-2">Pasif</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a onclick="deleteBanner(@banner.Id)"  class="btn btn-outline-danger btn-sm" href="javascript:void(0)" title="Sil">
+                                        <i class="fa fa-trash"></i> Sil
+                                    </a>
+                                    <a class="btn btn-outline-info btn-sm" href="/Admin/Banner/UpdateBanner/@banner.Id" title="Düzenle">
+                                        <i class="fa fa-edit"></i> Güncelle
+                                    </a>
+
+                                    @if (banner.IsActive)
+                                    {
+                                        <a class="btn btn-outline-warning btn-sm" href="javascript:void(0)" onclick="MakePassive(@banner.Id)" title="Pasife Al">
+                                            <i class="fa fa-eye-slash"></i> Pasif Yap
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-outline-success btn-sm" href="javascript:void(0)" onclick="MakeActiveBanner(@banner.Id)" title="Aktife Al">
+                                            <i class="fa fa-check"></i> Aktif Yap
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function deleteBanner(id) {
+        Swal.fire({
+            title: 'Silmek istediğine emin misin?',
+            text: "Bu verileri silersen geri alamazsın!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, Sil!',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Kullanıcı "Evet" derse silme URL'sine yönlendir
+                window.location.href = "/Admin/Banner/DeleteBanner/" + id;
+            }
+        })
+    }
+</script>
+
+
+<script>
+    function MakeActiveBanner(id) {
+        Swal.fire({
+            title: 'Aktif Etmek istediğinize emin misiniz?',
+            text: "Eğer Aktif ederseniz ekranda gözükecek veriniz!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, Aktif Yap!',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Kullanıcı "Evet" derse silme URL'sine yönlendir
+                window.location.href = "/Admin/Banner/MakeActive/" + id;
+            }
+        })
+    }
+</script>
+
+
+<script>
+    function MakePassive(id) {
+        Swal.fire({
+            title: 'Pasif yapmak istediğinize emin misiniz?',
+            text: "Eğer pasif yaparsanız ekranda gözükmez!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, Pasife Al!',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Kullanıcı "Evet" derse silme URL'sine yönlendir
+                window.location.href = "/Admin/Banner/MakePassive/" + id;
+            }
+        })
+    }
+</script>
+
