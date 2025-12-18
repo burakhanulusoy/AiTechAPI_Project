@@ -1,0 +1,109 @@
+﻿@model List<ResultAboutDto>
+@{
+    ViewData["Title"] = "Hakkımda Listesi";
+    Layout = "~/Views/Admin/Index.cshtml";
+    int count = 0;
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Hakkımda Bölümü Listesi</h6>
+        <a class="btn btn-success btn-sm" href="/Admin/About/CreateAbout">
+            <i class="fa fa-plus"></i> Yeni Ekle
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle ">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 25%">Başlık & Görsel</th>
+                        <th style="width: 30%">Açıklama</th>
+                        <th style="width: 25%">Özellikler</th>
+                        <th style="width: 15%">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var about in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="@about.ImageUrl" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;" alt="Görsel" />
+                                    <span class="fw-bold text-dark">@about.Title</span>
+                                </div>
+                            </td>
+                            <td class="text-muted small">
+                                @about.Description
+                            </td>
+                            <td>
+                                <div class="d-flex flex-wrap gap-1">
+                                    @if (!string.IsNullOrEmpty(about.Skill1))
+                                    {
+                                        <span class="badge bg-secondary">@about.Skill1</span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(about.Skill2))
+                                    {
+                                        <span class="badge bg-info text-dark">@about.Skill2</span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(about.Skill3))
+                                    {
+                                        <span class="badge bg-secondary">@about.Skill3</span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(about.Skill4))
+                                    {
+                                        <span class="badge bg-info text-dark">@about.Skill4</span>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="/Admin/About/UpdateAbout/@about.Id" class="btn btn-warning btn-sm text-white" title="Güncelle">
+                                        Güncelle
+                                    </a>
+                                    <a href="/Admin/About/DeleteAbout/@about.Id" class="btn btn-danger btn-sm">
+                                        Sil
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.btn-danger').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault(); // normal linkin çalışmasını durdur
+                const url = this.href;
+
+                Swal.fire({
+                    title: 'Emin misiniz?',
+                    text: "Bu işlemi geri alamazsınız!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Evet, sil!',
+                    cancelButtonText: 'Hayır'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    });
+</script>
+

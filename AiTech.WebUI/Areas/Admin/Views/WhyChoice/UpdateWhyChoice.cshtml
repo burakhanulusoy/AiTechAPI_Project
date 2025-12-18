@@ -1,0 +1,48 @@
+﻿@model UpdateWhyChoiseDto
+@{
+    ViewData["Title"] = "UpdateWhyChoice";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+
+
+<form method="post">
+
+    <input asp-for="Id" type="hidden" />
+
+    <div class="form-check">
+        <label>Başlık</label>
+        <input class="form-control" type="text" asp-for="Title" placeholder="*Başlık yazınız" />
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Açıklama</label>
+        <input class="form-control" type="text" asp-for="Description" placeholder="*Açıklama yazınız" />
+        <span class="text-danger" asp-validation-for="Description"></span>
+    </div>
+
+
+
+    <div class="form-check">
+        <label>Özellik-1</label>
+        <input class="form-control" type="text" asp-for="Item1" placeholder="*Özellik yazınız" />
+        <span class="text-danger" asp-validation-for="Item1"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Özellik-3</label>
+        <input class="form-control" type="text" asp-for="Item2" placeholder="*Özellik yazınız" />
+        <span class="text-danger" asp-validation-for="Item2"></span>
+    </div>
+    <div class="form-check">
+        <label>Özellik-3</label>
+        <input class="form-control" type="text" asp-for="Item3" placeholder="*Özellik yazınız" />
+        <span class="text-danger" asp-validation-for="Item3"></span>
+    </div>
+
+
+    <button class="btn btn-outline-success">Kaydet</button>
+
+</form>
+

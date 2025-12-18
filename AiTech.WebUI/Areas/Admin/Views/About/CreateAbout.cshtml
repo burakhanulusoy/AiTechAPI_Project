@@ -1,0 +1,110 @@
+﻿@model CreateAboutDto
+@{
+    ViewData["Title"] = "CreateAbout";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<form method="post" id="categoryForm">
+
+    <div class="form-check">
+        <label>Başlık</label>
+        <input class="form-control" type="text" asp-for="Title" placeholder="*Başlık yazınız"  />
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Açıklama</label>
+        <input class="form-control" type="text" asp-for="Description" placeholder="*Açıklama yazınız" />
+        <span class="text-danger" asp-validation-for="Description"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Fotoğraf Url'i Giriniz</label>
+        <input class="form-control" type="url" asp-for="ImageUrl" placeholder="*Url yazınız" />
+        <span class="text-danger" asp-validation-for="ImageUrl"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Özellik-1</label>
+        <input class="form-control" type="text" asp-for="Skill1" placeholder="*Özellik yazınız" />
+        <span class="text-danger" asp-validation-for="Skill1"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Özellik-3</label>
+        <input class="form-control" type="text" asp-for="Skill2" placeholder="*Özellik yazınız" />
+        <span class="text-danger" asp-validation-for="Skill2"></span>
+    </div>
+    <div class="form-check">
+        <label>Özellik-3</label>
+        <input class="form-control" type="text" asp-for="Skill3" placeholder="*Özellik yazınız" />
+        <span class="text-danger" asp-validation-for="Skill3"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Özellik-4</label>
+        <input class="form-control" type="text" asp-for="Skill4" placeholder="*Özellik yazınız" />
+        <span class="text-danger" asp-validation-for="Skill4"></span>
+    </div>
+    <br />
+
+    <button id="btnCreate" type="button" class="btn btn-outline-success">Kaydet</button>
+
+</form>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.getElementById("btnCreate").addEventListener("click", function () {
+        Swal.fire({
+            title: "Kaydetmek üzeresiniz!",
+            text: "Girdiğiniz bilgileri kontrol ettiniz mi?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: '<i class="fa fa-check"></i> Evet, Kaydet!',
+            cancelButtonText: '<i class="fa fa-times"></i> Vazgeç',
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            background: "#f9f9f9",
+            backdrop: `
+              rgba(0,0,0,0.4)
+              left top
+              no-repeat
+            `,
+            customClass: {
+                title: 'swal2-title-custom',
+                popup: 'swal2-popup-custom',
+                confirmButton: 'swal2-confirm-custom',
+                cancelButton: 'swal2-cancel-custom'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Formu submit etmeden önce loading efekti
+                Swal.fire({
+                    title: "Kontrol Ediliyor...",
+                    text: "Lütfen bekleyiniz",
+                    timer: 2000,
+                    timerProgressBar: true,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                }).then(() => {
+                    // 2sn sonra formu gönder
+                    document.getElementById("categoryForm").submit();
+
+                    // Başarılı mesaj (form post sonrası Redirect olursa gerek kalmaz)
+                    
+                });
+            }
+        });
+    });
+</script>
+
+
+
+

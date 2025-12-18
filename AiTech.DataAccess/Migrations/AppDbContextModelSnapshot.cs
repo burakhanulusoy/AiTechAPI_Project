@@ -41,6 +41,22 @@ namespace AiTech.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Skill1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Skill2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Skill3")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Skill4")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -51,34 +67,6 @@ namespace AiTech.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Abouts");
-                });
-
-            modelBuilder.Entity("AiTech.Entity.Entities.AboutItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AboutId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TitleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AboutId");
-
-                    b.ToTable("AboutItems");
                 });
 
             modelBuilder.Entity("AiTech.Entity.Entities.Banner", b =>
@@ -138,7 +126,7 @@ namespace AiTech.DataAccess.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("AiTech.Entity.Entities.Feature", b =>
+            modelBuilder.Entity("AiTech.Entity.Entities.OurTeam", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,15 +137,31 @@ namespace AiTech.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("FacebookLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Icon")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InstagramLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Job")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LinkedlnLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TwitterLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -166,7 +170,7 @@ namespace AiTech.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Features");
+                    b.ToTable("OurTeams");
                 });
 
             modelBuilder.Entity("AiTech.Entity.Entities.Project", b =>
@@ -271,6 +275,33 @@ namespace AiTech.DataAccess.Migrations
                     b.ToTable("Testimonials");
                 });
 
+            modelBuilder.Entity("AiTech.Entity.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("AiTech.Entity.Entities.WhyChoise", b =>
                 {
                     b.Property<int>("Id")
@@ -310,17 +341,6 @@ namespace AiTech.DataAccess.Migrations
                     b.ToTable("WhyChoises");
                 });
 
-            modelBuilder.Entity("AiTech.Entity.Entities.AboutItem", b =>
-                {
-                    b.HasOne("AiTech.Entity.Entities.About", "About")
-                        .WithMany("AboutItems")
-                        .HasForeignKey("AboutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("About");
-                });
-
             modelBuilder.Entity("AiTech.Entity.Entities.Project", b =>
                 {
                     b.HasOne("AiTech.Entity.Entities.Category", "Category")
@@ -330,11 +350,6 @@ namespace AiTech.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("AiTech.Entity.Entities.About", b =>
-                {
-                    b.Navigation("AboutItems");
                 });
 
             modelBuilder.Entity("AiTech.Entity.Entities.Category", b =>

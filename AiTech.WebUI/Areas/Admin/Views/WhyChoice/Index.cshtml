@@ -1,0 +1,68 @@
+﻿@model List<ResultWhyChoiseDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Admin/Index.cshtml";
+    int count = 0;
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center bg-white border-bottom-0">
+        <h6 class="m-0 font-weight-bold text-primary">Neden Biz? (Detaylı Görünüm)</h6>
+        <a class="btn btn-success btn-sm rounded-pill px-3" href="/Admin/WhyChoice/CreateWhyChoice">
+            <i class="fa fa-plus"></i> Yeni Ekle
+        </a>
+    </div>
+    <div class="card-body">
+
+        <div class="accordion" id="accordionWhyChoice">
+            @foreach (var item in Model)
+            {
+                count++;
+                <div class="accordion-item border mb-2 rounded overflow-hidden">
+                    <h2 class="accordion-header" id="heading-@item.Id">
+                        <button class="accordion-button collapsed fw-bold text-dark bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@item.Id" aria-expanded="false" aria-controls="collapse-@item.Id">
+                            <span class="badge bg-primary me-3">#@count</span> @item.Title
+                        </button>
+                    </h2>
+                    <div id="collapse-@item.Id" class="accordion-collapse collapse" aria-labelledby="heading-@item.Id" data-bs-parent="#accordionWhyChoice">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h6 class="text-muted text-uppercase small fw-bold">Açıklama:</h6>
+                                    <p>@item.Description</p>
+
+                                    <h6 class="text-muted text-uppercase small fw-bold mt-3">Özellikler:</h6>
+                                    <div class="d-flex gap-2">
+                                        @if (!string.IsNullOrEmpty(item.Item1))
+                                        {
+                                            <span class="badge bg-dark p-2">@item.Item1</span>
+                                        }
+                                        @if (!string.IsNullOrEmpty(item.Item2))
+                                        {
+                                            <span class="badge bg-dark p-2">@item.Item2</span>
+                                        }
+                                        @if (!string.IsNullOrEmpty(item.Item3))
+                                        {
+                                            <span class="badge bg-dark p-2">@item.Item3</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-3 d-flex flex-column justify-content-center align-items-end border-start">
+                                    <a href="/Admin/WhyChoice/UpdateWhyChoice/@item.Id" class="btn btn-outline-warning w-100 mb-2">
+                                        <i class="fa fa-pen"></i> Güncelle
+                                    </a>
+                                    <a href="/Admin/WhyChoice/DeleteWhyChoice/@item.Id" class="btn btn-outline-danger w-100" onclick="return confirm('Silmek istediğinize emin misiniz?');">
+                                        <i class="fa fa-trash"></i> Sil
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+

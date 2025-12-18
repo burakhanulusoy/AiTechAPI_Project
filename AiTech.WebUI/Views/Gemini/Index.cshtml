@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+
+<form method="post">
+
+    <label>Propmtuunuz:</label>
+    <input type="text" name="prompt" class="form-control" required />
+    <br />
+
+    <button class="btn btn-primary">Gönder</button>
+
+</form>
+
+
+@if(ViewBag.response !=null)
+{
+    
+    <div class="alert alert-info">
+        <strong>Geleln Yanıt</strong>
+        <br />
+        <p>@ViewBag.response</p>
+
+    </div>
+
+}

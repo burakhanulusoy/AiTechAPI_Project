@@ -1,0 +1,110 @@
+﻿@model UpdateBannerDto
+@{
+    ViewData["Title"] = "UpdateBanner";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg mt-3">
+
+                <div class="card-header bg-primary text-white">
+                    <h3 class="font-weight-light my-2">
+                        <i class="fas fa-image me-2"></i>Yeni Banner Ekle
+                    </h3>
+                    <small class="text-white-50">Web sitenizin ana sayfasındaki banner alanını buradan yönetebilirsiniz.</small>
+                </div>
+
+                <div class="card-body p-5">
+                    <form method="post" id="bannerForm">
+                        <input asp-for="Id" type="hidden" />
+
+                        <div class="form-floating mb-3">
+                            <input type="text" asp-for="Title" class="form-control" id="inputTitle" placeholder="Banner Başlığı" required />
+                            <label for="inputTitle"><i class="fas fa-heading me-1"></i> Başlık Adı</label>
+                            <span class="text-danger small" asp-validation-for="Title"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <textarea type="text" asp-for="Description" class="form-control" id="inputDescription" placeholder="Kısa Açıklama" required rows="3"></textarea>
+                            <label for="inputDescription"><i class="fas fa-align-left me-1"></i> Açıklama</label>
+                            <span class="text-danger small" asp-validation-for="Description"></span>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="url" asp-for="ImageUrl" class="form-control" id="inputImage" placeholder="https://..." required />
+                            <label for="inputImage"><i class="fas fa-link me-1"></i> Fotoğraf Linki</label>
+                            <span class="text-danger small" asp-validation-for="ImageUrl"></span>
+                            <div class="form-text">Lütfen geçerli bir resim URL'si giriniz.</div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/Admin/Banner/Index" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-arrow-left me-1"></i> İptal
+                            </a>
+                            <button id="btnCreate" type="button" class="btn btn-primary btn-lg px-5">
+                                <i class="fas fa-save me-1"></i> Kaydet
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.getElementById("btnCreate").addEventListener("click", function () {
+        // Form validasyonunu manuel tetikleyelim (HTML5 validation)
+        var form = document.getElementById("bannerForm");
+        if (!form.checkValidity()) {
+            form.reportValidity(); // Tarayıcının standart uyarısını gösterir
+            return;
+        }
+
+        Swal.fire({
+            title: "Güncellemek istiyor musunuz?",
+            text: "Bilgiler sitemizin ekranına yansıtılacak.",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: '<i class="fas fa-check"></i> Evet, güncelle',
+            cancelButtonText: '<i class="fas fa-times"></i> Vazgeç',
+            confirmButtonColor: "#4e73df", // Admin temasına uygun mavi
+            cancelButtonColor: "#858796", // Gri ton
+            reverseButtons: true, // Butonların yerini değiştirir (Sağda onay olsun diye)
+            focusConfirm: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                // Loading Efekti
+                let timerInterval;
+                Swal.fire({
+                    title: 'Kontrol ediliyor...',
+                    html: 'Veriler sisteme yükleniyor, lütfen bekleyiniz.',
+                    timer: 1500, // 1.5 saniye bekleme simülasyonu
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval);
+                    }
+                }).then((result) => {
+                    /* Not: Form submit edildiğinde sayfa yenileneceği için
+                       'Başarılı' mesajını burada göstermek yerine,
+                       Controller tarafında TempData["Success"] kullanıp
+                       Listeleme sayfasında (Index) göstermek daha sağlıklı bir yöntemdir.
+                       Ancak isteğin üzerine kodu burada bırakıyorum. */
+
+                     document.getElementById("bannerForm").submit();
+                });
+            }
+        });
+    });
+</script>

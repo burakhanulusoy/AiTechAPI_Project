@@ -1,92 +1,94 @@
 ﻿@model List<ResultCategoryDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Kategori Listesi";
     Layout = "~/Views/Admin/Index.cshtml";
     int count = 0;
-
 }
 
-<div class="main-content-container overflow-hidden">
+<div class="container-fluid mt-4">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-primary text-white">
+            <h6 class="m-0 font-weight-bold">
+                <i class="fas fa-list-alt me-2"></i> Kategori Listesi
+            </h6>
+            <a href="/Admin/Category/CreateCategory" class="btn btn-light btn-sm text-primary fw-bold">
+                <i class="fa fa-plus"></i> Yeni Kategori Ekle
+            </a>
+        </div>
 
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4 mt-1">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle" width="100%" cellspacing="0">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 10%">#</th>
+                            <th style="width: 70%">Kategori Adı</th>
+                            <th style="width: 20%" class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td class="fw-bold">@count</td>
+                                <td>
+                                    <span class="fw-bold text-dark">@category.Name</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <a href="/Admin/Category/UpdateCategory/@category.Id"
+                                           class="btn btn-warning btn-sm text-white"
+                                           title="Güncelle">
+                                            <i class="fa fa-pen">Güncelle</i>
+                                        </a>
+                                        <a href="/Admin/Category/DeleteCategory/@category.Id"
+                                           class="btn btn-danger btn-sm delete-btn"
+                                           title="Sil">
+                                            <i class="fa fa-trash">Sil</i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
 
-
-
-
-        <table class="table table-bordered table-hover">
-
-            <tr>
-                <td>#</td>
-                <td>Name</td>
-                <td>İşlemler</td>
-
-            </tr>
-
-            @foreach (var category in Model)
+            @if (Model.Count == 0)
             {
-                count++;
-
-                <tr>
-                    <td>@count</td>
-                    <td>@category.Name</td>
-                    <td>
-                        <a href="/Admin/Category/DeleteCategory/@category.Id" class="btn btn-danger">Sil</a>
-                        <a href="/Admin/Category/UpdateCategory/@category.Id" class="btn btn-info">Güncelle</a>
-
-                    </td>
-
-                </tr>
-
-
-
-
+                <div class="alert alert-info text-center mt-3">
+                    <i class="fa fa-info-circle"></i> Henüz herhangi bir kategori eklenmemiş.
+                </div>
             }
-        </table>
-
-        <a href="/Admin/Category/CreateCategory" class="btn btn-success">Yeni Kategori Ekle</a>
-
-
-
-
+        </div>
     </div>
-
-
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 'delete-btn' class'ına sahip elementleri seçiyoruz
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.href;
 
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.btn-danger').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault(); // normal linkin çalışmasını durdur
-                    const url = this.href;
-
-                    Swal.fire({
-                        title: 'Emin misiniz?',
-                        text: "Bu işlemi geri alamazsınız!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Evet, sil!',
-                        cancelButtonText: 'Hayır'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = url;
-                        }
-                    });
+                Swal.fire({
+                    title: 'Silmek istediğinize emin misiniz?',
+                    text: "Bu kategori silinecektir, bu işlem geri alınamaz!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Evet, sil!',
+                    cancelButtonText: 'Vazgeç'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;
+                    }
                 });
             });
         });
-    </script>
-
-
-
-
-
-
+    });
+</script>

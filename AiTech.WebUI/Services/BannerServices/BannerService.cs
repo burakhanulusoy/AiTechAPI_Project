@@ -29,9 +29,9 @@ namespace AiTech.WebUI.Services.BannerServices
             return await _client.GetFromJsonAsync<List<ResultBannerDto>>("banners");
         }
 
-        public async Task<ResultBannerDto> GetBannerAsync(int id)
+        public async Task<UpdateBannerDto> GetBannerAsync(int id)
         {
-            return await _client.GetFromJsonAsync<ResultBannerDto>("banners/" + id);
+            return await _client.GetFromJsonAsync<UpdateBannerDto>("banners/" + id);
         }
 
         public async Task MakeActiveBannerAsync(int id)

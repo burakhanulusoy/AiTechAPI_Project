@@ -1,0 +1,384 @@
+﻿@{
+    ViewData["Title"] = "Ai.Tech - Akıllı Asistan";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<div class="container-fluid pt-5 bg-primary hero-header mb-5">
+    <div class="container pt-5">
+        <div class="row g-5 pt-5">
+            <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                <div class="btn btn-sm border rounded-pill text-white px-3 mb-3 animated slideInRight">Ai.Tech</div>
+                <h1 class="display-4 text-white mb-4 animated slideInRight">Yapay Zeka Asistanı</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Ai.Tech Sohbet Ediniz...</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-lg-6 align-self-end text-center text-lg-end">
+                <img class="img-fluid" src="~/AI-html-1.0.0/img/hero-img.png" alt="" style="max-height: 300px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+
+                    <div class="card-header bg-primary text-white p-4 d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                <i class="fa fa-robot text-primary fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0 text-white">Ai.Tech Asistan</h5>
+                                <small class="opacity-75"><i class="fa fa-circle text-success me-1" style="font-size: 10px;"></i>Çevrimiçi</small>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="badge bg-white text-primary rounded-pill">Sesli Sohbet Modu</span>
+                        </div>
+                    </div>
+
+                    <div id="chatHistory" class="card-body bg-light" style="height: 500px; overflow-y: auto; scroll-behavior: smooth; padding: 30px;">
+
+                        <div class="d-flex justify-content-start mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    <i class="fa fa-robot"></i>
+                                </div>
+                            </div>
+                            <div class="ms-3">
+                                <div class="bg-white p-3 rounded-4 shadow-sm text-dark" style="max-width: 100%; border-top-left-radius: 0 !important;">
+                                    <p class="mb-0">Merhaba! Ben <strong>Ai.Tech</strong> sanal asistanıyım. Size nasıl yardımcı olabilirim? Mikrofon butonuna basarak konuşabilirsiniz.</p>
+                                </div>
+                                <small class="text-muted ms-2" style="font-size: 0.75rem;">Ai.Tech Bot • Şimdi</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="typingIndicator" class="px-4 py-2 bg-light d-none">
+                        <div class="d-flex align-items-center">
+                            <small class="text-muted me-2">Ai.Tech düşünüyor</small>
+                            <div class="typing-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-white p-4 border-top">
+                        <div class="d-flex flex-column align-items-center">
+
+                            <p id="statusText" class="text-muted mb-3 small fw-bold">Konuşmak için mikrofona dokunun</p>
+
+                            <div class="position-relative">
+                                <button id="recordButton" class="btn btn-primary btn-lg rounded-circle shadow-lg d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; transition: all 0.3s;">
+                                    <i class="fa fa-microphone fs-2"></i>
+                                </button>
+                                <div id="pulseRing" class="pulse-ring"></div>
+                            </div>
+
+                            <audio id="audioPlayer" controls style="display:none;"></audio>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-primary newsletter py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-md-5 ps-lg-0 pt-5 pt-md-0 text-start wow fadeIn" data-wow-delay="0.3s">
+                <img class="img-fluid" src="~/AI-html-1.0.0/img/newsletter.png" alt="">
+            </div>
+            <div class="col-md-7 py-5 newsletter-text wow fadeIn" data-wow-delay="0.5s">
+                <h1 class="text-white mb-4">Ai.Tech Bültenine Abone Olun</h1>
+                <div class="position-relative w-100 mt-3 mb-2">
+                    <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="E-posta Adresiniz" style="height: 48px;">
+                    <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2">
+                        <i class="fa fa-paper-plane text-primary fs-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Scrollbar Özelleştirme */
+    #chatHistory::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    #chatHistory::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    #chatHistory::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+    }
+
+        #chatHistory::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+    /* Mikrofon Pulse Efekti */
+    .pulse-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 4px solid #dc3545;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .recording-active #recordButton {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+        transform: scale(1.1);
+    }
+
+    .recording-active + .pulse-ring {
+        animation: pulse-animation 1.5s infinite;
+    }
+
+    keyframes pulse-animation {
+        0%
+
+    {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+
+    }
+
+    /* Yazıyor Animasyonu (Üç nokta) */
+    .typing-dots span {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: #888;
+        border-radius: 50%;
+        margin-left: 3px;
+        animation: typing 1.4s infinite ease-in-out both;
+    }
+
+        .typing-dots span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+    keyframes typing {
+        0%, 80%, 100%
+
+    {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+
+    }
+</style>
+<script>
+    const recordButton = document.getElementById('recordButton');
+    const recordContainer = document.querySelector('.position-relative');
+    const statusText = document.getElementById('statusText');
+    const chatHistory = document.getElementById('chatHistory');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const typingIndicator = document.getElementById('typingIndicator');
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
+
+    // --- DEĞİŞİKLİK 1: Tıklama Olayı Güncellendi ---
+    recordButton.addEventListener('click', async () => {
+        // Butona basıldığı an, eğer bot konuşuyorsa onu sustur
+        stopAudioPlayback();
+
+        if (!isRecording) {
+            await startRecording();
+        } else {
+            stopRecording();
+        }
+    });
+
+    // --- DEĞİŞİKLİK 2: Yeni Susturma Fonksiyonu ---
+    function stopAudioPlayback() {
+        if (!audioPlayer.paused) {
+            audioPlayer.pause();       // Sesi durdur
+            audioPlayer.currentTime = 0; // Başa sar
+            // İstersen burada "Susturuldu" diye status yazdırabilirsin ama akış bozulmasın diye gerek yok.
+        }
+    }
+
+    async function startRecording() {
+        // Kayıt başlarken de garanti olsun diye sesi keselim
+        stopAudioPlayback();
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
+
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+
+                showTypingIndicator();
+                statusText.innerText = "Ai.Tech cevabı hazırlanıyor...";
+
+                await sendAudioToBackend(audioBlob);
+            };
+
+            mediaRecorder.start();
+            isRecording = true;
+
+            recordContainer.classList.add('recording-active');
+            recordButton.innerHTML = '<i class="fa fa-stop fs-2"></i>';
+            statusText.innerText = "Dinliyorum... Bitirmek için dokunun.";
+            statusText.classList.add("text-danger");
+
+        } catch (err) {
+            console.error("Hata:", err);
+            alert("Mikrofona erişilemedi.");
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+            isRecording = false;
+
+            recordContainer.classList.remove('recording-active');
+            recordButton.innerHTML = '<i class="fa fa-spinner fa-spin fs-2"></i>';
+            recordButton.disabled = true;
+            statusText.classList.remove("text-danger");
+        }
+    }
+
+    async function sendAudioToBackend(audioBlob) {
+        const formData = new FormData();
+        formData.append('audioFile', audioBlob, 'recording.webm');
+
+        try {
+            const response = await fetch('/Contact/Talk', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) throw new Error('API Hatası');
+
+            const result = await response.json();
+
+            hideTypingIndicator();
+
+            if (result.success) {
+                appendUserMessage(result.userText);
+                appendBotMessage(result.botReply);
+                playAudio(result.audioData);
+
+                statusText.innerText = "Tekrar konuşmak için dokunun";
+            } else {
+                alert("Hata: " + result.message);
+                statusText.innerText = "Bir hata oluştu.";
+            }
+
+        } catch (error) {
+            hideTypingIndicator();
+            console.error(error);
+            statusText.innerText = "Bağlantı hatası.";
+        } finally {
+            recordButton.disabled = false;
+            recordButton.innerHTML = '<i class="fa fa-microphone fs-2"></i>';
+        }
+    }
+
+    // --- Mesaj Ekleme Fonksiyonları (AYNI KALDI) ---
+    function appendUserMessage(text) {
+        const div = document.createElement('div');
+        div.className = 'd-flex justify-content-end mb-4 animated fadeIn';
+        div.innerHTML = `
+            <div class="me-3 text-end">
+                <div class="bg-primary text-white p-3 rounded-4 shadow-sm" style="max-width: 100%; border-top-right-radius: 0 !important;">
+                    <p class="mb-0">${text}</p>
+                </div>
+                <small class="text-muted me-2" style="font-size: 0.75rem;">Siz • Az önce</small>
+            </div>
+            <div class="flex-shrink-0">
+                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="fa fa-user"></i>
+                </div>
+            </div>
+        `;
+        chatHistory.appendChild(div);
+        scrollToBottom();
+    }
+
+    function appendBotMessage(text) {
+        const div = document.createElement('div');
+        div.className = 'd-flex justify-content-start mb-4 animated fadeIn';
+        div.innerHTML = `
+            <div class="flex-shrink-0">
+                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="fa fa-robot"></i>
+                </div>
+            </div>
+            <div class="ms-3">
+                <div class="bg-white p-3 rounded-4 shadow-sm text-dark" style="max-width: 100%; border-top-left-radius: 0 !important;">
+                    <p class="mb-0">${text}</p>
+                </div>
+                <small class="text-muted ms-2" style="font-size: 0.75rem;">Ai.Tech Bot • Şimdi</small>
+            </div>
+        `;
+        chatHistory.appendChild(div);
+        scrollToBottom();
+    }
+
+    function showTypingIndicator() {
+        typingIndicator.classList.remove('d-none');
+        scrollToBottom();
+    }
+
+    function hideTypingIndicator() {
+        typingIndicator.classList.add('d-none');
+    }
+
+    function scrollToBottom() {
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function playAudio(base64Audio) {
+        // Önceki ses varsa durdur (Garanti olsun)
+        stopAudioPlayback();
+
+        audioPlayer.src = "data:audio/mp3;base64," + base64Audio;
+        audioPlayer.play();
+    }
+</script>

@@ -6,7 +6,7 @@ namespace AiTech.WebUI.Services.BannerServices
     {
 
         Task<List<ResultBannerDto>> GetAllBannerAsync();
-        Task<ResultBannerDto> GetBannerAsync(int id);
+        Task<UpdateBannerDto> GetBannerAsync(int id);
         Task CreateBannerAsync(CreateBannerDto createBannerDto);
         Task UpdateBannerAsync(UpdateBannerDto updateBannerDto);
         Task DeleteBannerAsync(int id);

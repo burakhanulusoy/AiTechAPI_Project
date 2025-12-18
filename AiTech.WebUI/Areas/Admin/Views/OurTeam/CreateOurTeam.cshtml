@@ -1,0 +1,107 @@
+﻿@model CreateOurTeamDto
+@{
+    ViewData["Title"] = "CreateOurTeam";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+
+<form method="post" id="categoryForm">
+
+    <div class="form-check">
+        <label>Ad Soyad</label>
+        <input class="form-control" type="text" asp-for="FullName" placeholder="*Ad soyad yazınız" />
+        <span class="text-danger" asp-validation-for="FullName"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Meslek</label>
+        <input class="form-control" type="text" asp-for="Job" placeholder="*Mesleği yazınız" />
+        <span class="text-danger" asp-validation-for="Job"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Fotoğraf Url'i Giriniz</label>
+        <input class="form-control" type="url" asp-for="ImageUrl" placeholder="*Url yazınız" />
+        <span class="text-danger" asp-validation-for="ImageUrl"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Facebook Linki</label>
+        <input class="form-control" type="url" asp-for="FacebookLink" placeholder="*Facebook" />
+        <span class="text-danger" asp-validation-for="FacebookLink"></span>
+    </div>
+    
+    <div class="form-check">
+        <label>Instagram Linki</label>
+        <input class="form-control" type="url" asp-for="InstagramLink" placeholder="*Instagram" />
+        <span class="text-danger" asp-validation-for="InstagramLink"></span>
+    </div>
+    
+    <div class="form-check">
+        <label>Linkedln Linki</label>
+        <input class="form-control" type="url" asp-for="LinkedlnLink" placeholder="*Linkedln" />
+        <span class="text-danger" asp-validation-for="LinkedlnLink"></span>
+    </div>
+    
+    <div class="form-check">
+        <label>Twitter Linki</label>
+        <input class="form-control" type="url" asp-for="TwitterLink" placeholder="*Twitter" />
+        <span class="text-danger" asp-validation-for="TwitterLink"></span>
+    </div>
+
+
+
+    <button id="btnCreate" type="button" class="btn btn-outline-success">Kaydet</button>
+
+</form>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.getElementById("btnCreate").addEventListener("click", function () {
+        Swal.fire({
+            title: "Kaydetmek üzeresiniz!",
+            text: "Girdiğiniz bilgileri kontrol ettiniz mi?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: '<i class="fa fa-check"></i> Evet, Kaydet!',
+            cancelButtonText: '<i class="fa fa-times"></i> Vazgeç',
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            background: "#f9f9f9",
+            backdrop: `
+              rgba(0,0,0,0.4)
+              left top
+              no-repeat
+            `,
+            customClass: {
+                title: 'swal2-title-custom',
+                popup: 'swal2-popup-custom',
+                confirmButton: 'swal2-confirm-custom',
+                cancelButton: 'swal2-cancel-custom'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Formu submit etmeden önce loading efekti
+                Swal.fire({
+                    title: "Kontrol Ediliyor...",
+                    text: "Lütfen bekleyiniz",
+                    timer: 2000,
+                    timerProgressBar: true,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                }).then(() => {
+                    // 2sn sonra formu gönder
+                    document.getElementById("categoryForm").submit();
+
+                    // Başarılı mesaj (form post sonrası Redirect olursa gerek kalmaz)
+
+                });
+            }
+        });
+    });
+</script>

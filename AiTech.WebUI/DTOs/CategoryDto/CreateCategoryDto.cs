@@ -1,5 +1,5 @@
 ﻿namespace AiTech.WebUI.DTOs.CategoryDto
 {
-    public record CreateCategoryDto(string Name);
+    public record CreateCategoryDto(string? Name);
     
 }

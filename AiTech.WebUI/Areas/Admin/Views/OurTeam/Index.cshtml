@@ -1,0 +1,87 @@
+﻿@model List<ResultOurTeamDto>
+@{
+    ViewData["Title"] = "Takım Kartları";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="text-gray-800">Takım Arkadaşlarımız</h3>
+    <a href="/Admin/OurTeam/CreateOurTeam" class="btn btn-success shadow-sm">
+        <i class="fas fa-user-plus fa-sm text-white-50"></i> Yeni Ekle
+    </a>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 shadow h-100 py-2">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <img src="@item.ImageUrl" class="rounded-circle img-thumbnail"
+                             style="width: 100px; height: 100px; object-fit: cover;">
+                    </div>
+
+                    <h5 class="font-weight-bold text-dark mb-1">@item.FullName</h5>
+                    <p class="text-muted small mb-3">@item.Job</p>
+
+                    <div class="mb-3 d-flex justify-content-center gap-2">
+                        @if (!string.IsNullOrEmpty(item.LinkedlnLink))
+                        {
+                            <a href="@item.LinkedlnLink" class="text-primary"><i class="fab fa-linkedin fa-lg"></i></a>
+                        }
+                        @if (!string.IsNullOrEmpty(item.TwitterLink))
+                        {
+                            <a href="@item.TwitterLink" class="text-info"><i class="fab fa-twitter-square fa-lg"></i></a>
+                        }
+                        @if (!string.IsNullOrEmpty(item.InstagramLink))
+                        {
+                            <a href="@item.InstagramLink" class="text-danger"><i class="fab fa-instagram-square fa-lg"></i></a>
+                        }
+                    </div>
+
+                    <hr />
+
+                    <div class="d-flex justify-content-between px-3">
+                        <a href="/Admin/OurTeam/UpdateOurTeam/@item.Id" class="btn btn-info">
+                            <i class="fas fa-pen"></i> Düzenle
+                        </a>
+                        <a href="/Admin/OurTeam/DeleteOurTeam/@item.Id" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Sil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.btn-danger').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault(); // normal linkin çalışmasını durdur
+                const url = this.href;
+
+                Swal.fire({
+                    title: 'Emin misiniz?',
+                    text: "Bu işlemi geri alamazsınız!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Evet, sil!',
+                    cancelButtonText: 'Hayır'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    });
+</script>

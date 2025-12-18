@@ -1,0 +1,59 @@
+﻿@model UpdateOurTeamDto
+@{
+    ViewData["Title"] = "UpdateOurTeam";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+
+<form method="post">
+
+    <input asp-for="Id" type="hidden" />
+
+
+    <div class="form-check">
+        <label>Ad Soyad</label>
+        <input class="form-control" type="text" asp-for="FullName" placeholder="*Ad soyad yazınız" />
+        <span class="text-danger" asp-validation-for="FullName"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Meslek</label>
+        <input class="form-control" type="text" asp-for="Job" placeholder="*Mesleği yazınız" />
+        <span class="text-danger" asp-validation-for="Job"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Fotoğraf Url'i Giriniz</label>
+        <input class="form-control" type="url" asp-for="ImageUrl" placeholder="*Url yazınız" />
+        <span class="text-danger" asp-validation-for="ImageUrl"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Facebook Linki</label>
+        <input class="form-control" type="url" asp-for="FacebookLink" placeholder="*Facebook" />
+        <span class="text-danger" asp-validation-for="FacebookLink"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Instagram Linki</label>
+        <input class="form-control" type="url" asp-for="InstagramLink" placeholder="*Instagram" />
+        <span class="text-danger" asp-validation-for="InstagramLink"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Linkedln Linki</label>
+        <input class="form-control" type="url" asp-for="LinkedlnLink" placeholder="*Linkedln" />
+        <span class="text-danger" asp-validation-for="LinkedlnLink"></span>
+    </div>
+
+    <div class="form-check">
+        <label>Twitter Linki</label>
+        <input class="form-control" type="url" asp-for="TwitterLink" placeholder="*Twitter" />
+        <span class="text-danger" asp-validation-for="TwitterLink"></span>
+    </div>
+
+
+
+    <button class="btn btn-outline-success">Kaydet</button>
+
+</form>

@@ -31,6 +31,7 @@ namespace AiTech.WebUI.Areas.Admin.Controllers
             {
                 return View(createBannerDto);
             }
+            createBannerDto.IsActive= true;
             await _bannerService.CreateBannerAsync(createBannerDto);
             return RedirectToAction("Index");
 
