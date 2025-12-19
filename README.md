@@ -245,6 +245,6 @@ Projeyi yerel makinenizde çalıştırmak için:
 
 ## 🤝 İletişim
 
-Geliştirici: **[Adınız Soyadınız]**
-LinkedIn: [Profil Linkiniz]
-Email: [Email Adresiniz]
+Geliştirici: **[Burak Han Ulusoy]**
+LinkedIn: [https://www.linkedin.com/in/burakhanulusoy/]
+Email: [burakhanulusoy18@gmail.com]
