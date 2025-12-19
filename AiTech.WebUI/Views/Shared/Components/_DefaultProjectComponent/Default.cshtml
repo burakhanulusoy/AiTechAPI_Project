@@ -1,0 +1,49 @@
+﻿@model List<ResultProjectDto>
+@*
+   project view component
+*@
+
+
+
+
+<div id="projectsss" class="container-fluid bg-light py-5">
+    <div class="container py-5">
+        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
+            <div class="btn btn-sm border rounded-pill text-primary px-3 mb-3">Projelerimiz</div>
+            <h1 class="mb-4">Explore Our Recent AI Case Studies</h1>
+        </div>
+        <div class="row g-4">
+            @foreach(var item in Model)
+            {
+
+            <div class="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+                <div class="case-item position-relative overflow-hidden rounded mb-2">
+                    <img class="img-fluid" src="@item.ImageUrl" alt="">
+                    <a class="case-overlay text-decoration-none" href="">
+                        <small>@item.Category.Name</small>
+                        <h5 class="lh-base text-white mb-3">
+                            @item.Title
+                        </h5>
+                        <span class="btn btn-square btn-primary"><i class="fa fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+                
+            }
+
+
+            
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /* case-item içindeki tüm resimleri hedefler */
+    .case-item img {
+        width: 100%; /* Genişlik zaten col-lg-4'e göre ayarlanır */
+        height: 750px; /* BURAYI İSTEDİĞİNİZ GİBİ AYARLAYIN (Örn: 250px, 400px) */
+        object-fit: cover; /* Sihirli kod budur. Resmi sündürmeden kutuya doldurur. */
+        /* object-position: center center; // İsteğe bağlı: Resmin odak noktasını merkeze alır */
+    }
+</style>

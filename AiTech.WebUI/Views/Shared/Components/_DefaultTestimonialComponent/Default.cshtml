@@ -1,0 +1,58 @@
+﻿@model List<ResultTestimonialDto>
+
+@*
+    Testimonial view component
+*@
+
+
+<div class="container-xxl py-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="btn btn-sm border rounded-pill text-primary px-3 mb-3">Yorumlarımız</div>
+                <h1 class="mb-4">Gerçek Deneyimler, Gerçek Sonuçlar</h1>
+                <p class="mb-4">
+                    Geliştirdiğimiz yapay zekâ ve makine öğrenmesi tabanlı çözümler, farklı sektörlerde faaliyet gösteren kurumların iş süreçlerini daha verimli, daha hızlı ve daha akıllı hale getiriyor.
+                    Bizimle çalışan müşterilerimizin gerçek deneyimleri, sunduğumuz teknolojilerin sahadaki etkisini ve yarattığı katma değeri açıkça ortaya koyuyor.
+                </p>
+                <a class="btn btn-primary rounded-pill px-4" href="">Devamını Okuyun</a>
+            </div>
+            <div class="col-lg-7 wow fadeIn" data-wow-delay="0.5s">
+                <div class="owl-carousel testimonial-carousel border-start border-primary">
+                    @foreach(var item in Model)
+                    {
+ <div class="testimonial-item ps-5">
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p class="fs-4">@item.Comment</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded-circle" src="@item.ImageUrl"
+                                 style="width: 60px; height: 60px;">
+                            <div class="ps-3">
+                                <h5 class="mb-1">@item.Name</h5>
+                                <span>@item.Title</span>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    }
+
+                   
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

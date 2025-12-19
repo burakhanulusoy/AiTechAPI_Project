@@ -1,3 +1,4 @@
+using AiTech.DataAccess.Context;
 using AiTech.DataAccess.Repositories.AboutRepositories;
 using AiTech.DataAccess.Repositories.BannerRepositories;
 using AiTech.DataAccess.Repositories.CategoryRepositories;
@@ -6,6 +7,7 @@ using AiTech.DataAccess.Repositories.ProjectRepositories;
 using AiTech.DataAccess.Repositories.TestimonialRepositories;
 using AiTech.DataAccess.Repositories.WhyChoiseRepositories;
 using AiTech.DataAccess.UnitOfWorks;
+using AiTech.Entity.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AiTech.DataAccess.Extensions
@@ -27,6 +29,9 @@ namespace AiTech.DataAccess.Extensions
             
             
             services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
 
 
         }

@@ -1,0 +1,190 @@
+﻿
+@*
+    ai ask view component
+*@
+
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    /* Yükleniyor Animasyonu */
+    .typing-indicator span {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background-color: #0d6efd;
+        border-radius: 50%;
+        animation: typing 1s infinite ease-in-out;
+        margin: 0 2px;
+    }
+
+        .typing-indicator span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+    keyframes typing {
+        0%, 100%
+
+    {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+
+    }
+
+    /* Modal İçeriği */
+    .ai-response-content {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #333;
+    }
+        /* AI markdown formatı için stil */
+        .ai-response-content pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+</style>
+
+<div class="container-fluid bg-primary newsletter py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+
+            <div class="col-md-5 ps-lg-0 pt-5 pt-md-0 text-start wow fadeIn" data-wow-delay="0.3s">
+                <img class="img-fluid" src="~/AI-html-1.0.0/img/newsletter.png" alt="">
+            </div>
+
+            <div class="col-md-7 py-5 newsletter-text wow fadeIn" data-wow-delay="0.5s">
+                <div class="btn btn-sm border rounded-pill text-white px-3 mb-3">Yapay Zeka Asistanı</div>
+                <h1 class="text-white mb-4">Claude AI'a Sorun</h1>
+
+                <div class="position-relative w-100 mt-3 mb-2">
+                    <input id="aiPrompt" class="form-control border-0 rounded-pill w-100 ps-4 pe-5"
+                           type="text" placeholder="Merak ettiğiniz konuyu buraya yazın..."
+                           style="height: 48px;">
+                    <button id="btnAskAi" type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2">
+                        <i class="fa fa-paper-plane text-primary fs-4"></i>
+                    </button>
+                </div>
+                <small class="text-white-50 fst-italic ms-2">Örnek: "Bana .NET Core mimarisini anlat."</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="aiResultModal" tabindex="-1" aria-labelledby="aiResultModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title d-flex align-items-center text-primary" id="aiResultModalLabel">
+                    <i class="fa fa-robot me-2"></i> Claude AI Yanıtı
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div id="aiLoading" class="text-center py-4" style="display:none;">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <p class="text-muted mt-2">Claude düşünüyor...</p>
+                </div>
+
+                <div id="aiAnswerContent" class="ai-response-content"></div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-outline-primary rounded-pill" onclick="copyToClipboard()">
+                    <i class="fa fa-copy"></i> Kopyala
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#btnAskAi").click(function () {
+            sendAiRequest();
+        });
+
+        // Enter tuşuna basınca da çalışsın
+        $('#aiPrompt').keypress(function (e) {
+            if (e.which == 13) {
+                sendAiRequest();
+                return false;
+            }
+        });
+    });
+
+    function sendAiRequest() {
+        var userPrompt = $("#aiPrompt").val();
+
+        if (userPrompt.trim() === "") {
+            // Şık bir uyarı (alert yerine toast kullanılabilir ama şimdilik alert)
+            alert("Lütfen bir soru yazın.");
+            return;
+        }
+
+        // 1. Modalı aç
+        var myModal = new bootstrap.Modal(document.getElementById('aiResultModal'));
+        myModal.show();
+
+        // 2. İçeriği temizle ve yükleniyor göster
+        $("#aiAnswerContent").html("");
+        $("#aiLoading").show();
+
+        // 3. İsteği at
+        $.ajax({
+            type: "POST",
+            url: "/Ai/AskClaude",
+            contentType: "application/json",
+            data: JSON.stringify({ prompt: userPrompt }),
+            success: function (response) {
+                $("#aiLoading").hide();
+
+                // Cevabı Markdown ile HTML'e çevir (marked.js kütüphanesi sayesinde)
+                // Eğer marked.js eklemezseniz burayı: $("#aiAnswerContent").text(response.answer); yapın.
+                var formattedHtml = marked.parse(response.answer);
+
+                // Daktilo efekti fonksiyonunu çağır
+                typeWriterEffect(formattedHtml, "#aiAnswerContent");
+            },
+            error: function (xhr) {
+                $("#aiLoading").hide();
+                $("#aiAnswerContent").html(`<div class="alert alert-danger">Hata oluştu: ${xhr.responseText}</div>`);
+            }
+        });
+    }
+
+    // Daktilo gibi yazma efekti (Opsiyonel, çok havalı durur)
+    function typeWriterEffect(htmlContent, elementId) {
+        // Not: HTML içeriği daktilo efektiyle yazmak zordur, bu yüzden
+        // profesyonel görünüm için direkt HTML'i basıp, fade-in efekti verebiliriz.
+        // Ancak basit bir fade-in efekti yapalım:
+        $(elementId).hide().html(htmlContent).fadeIn(1000);
+    }
+
+    // Cevabı kopyalama fonksiyonu
+    function copyToClipboard() {
+        var text = document.getElementById("aiAnswerContent").innerText;
+        navigator.clipboard.writeText(text).then(function() {
+            alert("Cevap kopyalandı!");
+        }, function(err) {
+            console.error('Kopyalama hatası: ', err);
+        });
+    }
+</script>

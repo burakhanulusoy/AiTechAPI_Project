@@ -1,0 +1,118 @@
+﻿@model List<ResultOurTeamDto>
+@*
+    our team componnet partial
+*@
+
+
+
+<div class="container-fluid bg-light py-5">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="btn btn-sm border rounded-pill text-primary px-3 mb-3">Takımımız</div>
+                <h1 class="mb-4">Deneyimli Ekip Üyelerimizle Tanışın</h1>
+                <p class="mb-4">
+                    Takımımız; yapay zekâ, yazılım geliştirme, veri bilimi ve siber güvenlik alanlarında uzmanlaşmış, farklı disiplinlerden gelen profesyonellerden oluşmaktadır.
+                    Her ekip üyemiz, yalnızca teknik bilgiye değil; aynı zamanda problem çözme yetkinliğine, analitik düşünme becerisine ve sürekli öğrenme kültürüne sahiptir.
+                </p>
+                <a class="btn btn-primary rounded-pill px-4" href="">Devamını Okuyun</a>
+            </div>
+            <div class="col-lg-7">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="row g-4">
+                            <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
+                                <div class="team-item bg-white text-center rounded p-4 pt-0">
+                                    <img class="img-fluid rounded-circle p-4" src="@Model[0].ImageUrl" alt="">
+                                    <h5 class="mb-0">@Model[0].FullName</h5>
+                                    <small>@Model[0].Job</small>
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[0].FacebookLink">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[0].TwitterLink">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[0].InstagramLink">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[0].LinkedlnLink">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 wow fadeIn" data-wow-delay="0.5s">
+                                <div class="team-item bg-white text-center rounded p-4 pt-0">
+                                    <img class="img-fluid rounded-circle p-4" src="@Model[1].ImageUrl" alt="">
+                                    <h5 class="mb-0">@Model[1].FullName</h5>
+                                    <small>@Model[1].Job</small>
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[1].FacebookLink">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[1].TwitterLink">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[1].InstagramLink">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[1].LinkedlnLink">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pt-md-4">
+                        <div class="row g-4">
+                            <div class="col-12 wow fadeIn" data-wow-delay="0.3s">
+                                <div class="team-item bg-white text-center rounded p-4 pt-0">
+                                    <img class="img-fluid rounded-circle p-4" src="@Model[2].ImageUrl" alt="">
+                                    <h5 class="mb-0">@Model[2].FullName</h5>
+                                    <small>@Model[2].Job</small>
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[2].FacebookLink">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[2].TwitterLink">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[2].InstagramLink">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[2].LinkedlnLink">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 wow fadeIn" data-wow-delay="0.7s">
+                                <div class="team-item bg-white text-center rounded p-4 pt-0">
+                                    <img class="img-fluid rounded-circle p-4" src="@Model[3].ImageUrl" alt="">
+                                    <h5 class="mb-0">@Model[3].FullName</h5>
+                                    <small>@Model[3].Job</small>
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[3].FacebookLink">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[3].TwitterLink">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[3].InstagramLink">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                        <a class="btn btn-square btn-primary m-1" href="@Model[3].LinkedlnLink">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

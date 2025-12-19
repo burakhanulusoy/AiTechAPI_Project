@@ -1,0 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+
+namespace AiTech.Entity.Entities
+{
+    public class AppUser:IdentityUser<int>
+    {
+        public string FullName { get; set; }
+        public string ImageUrl { get; set; }
+    }
+}

@@ -1,9 +1,10 @@
 using AiTech.Entity.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AiTech.DataAccess.Context
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext:IdentityDbContext<AppUser,AppRole,int>
     {
 
         public AppDbContext(DbContextOptions options):base(options)
@@ -19,7 +20,6 @@ namespace AiTech.DataAccess.Context
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<WhyChoise> WhyChoises { get; set; }
         public DbSet<OurTeam> OurTeams { get; set; }
-        public DbSet<User> Users { get; set; }
 
 
 

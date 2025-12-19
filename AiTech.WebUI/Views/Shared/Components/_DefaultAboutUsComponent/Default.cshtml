@@ -1,0 +1,44 @@
+﻿@model ResultAboutDto
+@*
+    About Us View Compoennt
+*@
+
+
+<div id="abouttt" class="container-fluid py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="about-img">
+                    <img class="img-fluid" src="~/AI-html-1.0.0/img/about-img.jpg">
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="btn btn-sm border rounded-pill text-primary px-3 mb-3">Hakkımızda</div>
+                <h1 class="mb-4">@Model.Title</h1>
+                <p class="mb-4">
+                    @(Model.Description.Length>400 ? Model.Description.Substring(0,400) : Model.Description)
+                </p>
+                <p class="mb-4">
+                    @(Model.Description.Length>400 ? Model.Description.Substring(400,Model.Description.Length) : "")
+                </p>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <h6 class="mb-3"><i class="fa fa-check text-primary me-2"></i>@Model.Skill1</h6>
+                        <h6 class="mb-0"><i class="fa fa-check text-primary me-2"></i>@Model.Skill3</h6>
+                    </div>
+                    <div class="col-sm-6">
+                        <h6 class="mb-3"><i class="fa fa-check text-primary me-2"></i>@Model.Skill2</h6>
+                        <h6 class="mb-0"><i class="fa fa-check text-primary me-2"></i>@Model.Skill4</h6>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mt-4">
+                    <a class="btn btn-primary rounded-pill px-4 me-3" href="">Devamını Okuyun</a>
+                    <a class="btn btn-outline-primary btn-square me-3" href="https://www.linkedin.com/in/burakhanulusoy/"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-primary btn-square me-3" href="https://www.linkedin.com/in/burakhanulusoy/"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-primary btn-square me-3" href="https://www.linkedin.com/in/burakhanulusoy/"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-outline-primary btn-square" href="https://www.linkedin.com/in/burakhanulusoy/"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
